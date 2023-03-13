@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -29,11 +30,13 @@ public class AccountController {
 	
 	// 추가
     @GetMapping("/accounts")
+    @CrossOrigin(origins = "*", exposedHeaders = "Authorization")
     public List<Account> getAllAccounts() {
         return accountRepository.findAll();
     }
 	
 	@GetMapping("/list")
+	@CrossOrigin(origins = "*", exposedHeaders = "Authorization")
 	public List<Account> getAll(Account account) {
 		
 		System.out.println("user_count=" + accountRepository.count());
@@ -60,18 +63,21 @@ public class AccountController {
 //    }
 	
 	@GetMapping("/list/{id}")
+	@CrossOrigin(origins = "*", exposedHeaders = "Authorization")
 	public Optional<Account> getAccountById(@PathVariable("id") String id) {
 		
 		return accountService.getAccountListById(id);
 	}
 	
 	@PostMapping("/regist")
+	@CrossOrigin(origins = "*", exposedHeaders = "Authorization")
 	public Account registAccount(@RequestBody Account account) {
 		
 		return accountService.registAccount(account);
 	}
 	
 	@PutMapping("/update/{id}")
+	@CrossOrigin(origins = "*", exposedHeaders = "Authorization")
 	public void updateAccount(
 			@PathVariable("id") Integer id,
 			@RequestBody Account account) {
@@ -80,6 +86,7 @@ public class AccountController {
 	}
 	
 	@DeleteMapping("/delete/{id}")
+	@CrossOrigin(origins = "*", exposedHeaders = "Authorization")
 	public void removeAccount(@PathVariable String id) {
 		
 		accountService.removeAccount(id);

@@ -4,6 +4,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.bit.project.article.domain.constant.SearchType;
+import com.bit.project.article.dto.ArticleDto;
 import com.bit.project.article.dto.request.ArticleRequest;
 import com.bit.project.article.dto.response.ArticleResponse;
 import com.bit.project.article.dto.response.ArticleWithCommentsResponse;
@@ -65,14 +67,28 @@ public class ArticleController {
 		return articles;
 	}
 
-    @PostMapping("/form")
-    @CrossOrigin(origins = "*", exposedHeaders = "Authorization")
-    public void postNewArticle(
-            @AuthenticationPrincipal BoardPrincipal boardPrincipal,
-            ArticleRequest articleRequest
-    ) {
-        articleService.saveArticle(articleRequest.toDto(boardPrincipal.toDto()));
-    }
+//    @PostMapping("/form")
+//    @CrossOrigin(origins = "*", exposedHeaders = "Authorization")
+//    public void postNewArticle(
+//            @AuthenticationPrincipal BoardPrincipal boardPrincipal,
+//            ArticleRequest articleRequest
+//    ) {
+//        articleService.saveArticle(articleRequest.toDto(boardPrincipal.toDto()));
+//    }
+	
+	@PostMapping("/form")
+	@CrossOrigin(origins = "*", exposedHeaders = "Authorization")
+	public ResponseEntity<String> postNewArticle(
+	        @AuthenticationPrincipal BoardPrincipal boardPrincipal,
+	        ArticleRequest articleRequest
+	) {
+	    try {
+	        articleService.saveArticle(articleRequest.toDto(boardPrincipal.toDto()));
+	        return ResponseEntity.ok("게시글이 생성되었습니다.");
+	    } catch (Exception e) {
+	        return ResponseEntity.badRequest().body("게시글 생성에 실패했습니다: " + e.getMessage());
+	    }
+	}
 
     @PostMapping("/{articleId}/form")
     @CrossOrigin(origins = "*", exposedHeaders = "Authorization")

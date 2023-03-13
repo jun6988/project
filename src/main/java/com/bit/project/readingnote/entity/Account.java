@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.Objects;
 import java.util.Set;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -23,14 +24,18 @@ import lombok.ToString;
 @ToString
 @Table(indexes = {
       @Index(columnList = "email", unique = true),
-      @Index(columnList = "createdAt")
+      @Index(columnList = "createdAt"),
+      @Index(columnList = "createdBy")
 })
 @Entity
 public class Account extends AuditingFields {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id;
+	@GeneratedValue(strategy = GenerationType.IDENTITY) // MySQL autoincrement 방식
+	private Long id;
+	
+    @Column(length = 50, unique = true)
+    private String accountId;
 	
 	@Setter private String nickname;
 	
@@ -50,7 +55,7 @@ public class Account extends AuditingFields {
 	
 	// 성준
 	
-	@Setter private String accountId;
+
 	
 //	private long reading_note_count;
 	
