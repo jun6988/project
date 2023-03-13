@@ -27,11 +27,17 @@ public class AccountController {
 	@Autowired
 	private AccountRepository accountRepository;
 	
+	// 추가
+    @GetMapping("/accounts")
+    public List<Account> getAllAccounts() {
+        return accountRepository.findAll();
+    }
+	
 	@GetMapping("/list")
 	public List<Account> getAll(Account account) {
 		
 		System.out.println("user_count=" + accountRepository.count());
-		System.out.println("male_count=" + accountRepository.countByGender("male"));
+		//System.out.println("male_count=" + accountRepository.countByGender("male"));
 		
 //		accountService.updateReadingNoteCount(account);
 		
@@ -54,7 +60,7 @@ public class AccountController {
 //    }
 	
 	@GetMapping("/list/{id}")
-	public Optional<Account> getAccountById(@PathVariable("id") Integer id) {
+	public Optional<Account> getAccountById(@PathVariable("id") String id) {
 		
 		return accountService.getAccountListById(id);
 	}
@@ -74,7 +80,7 @@ public class AccountController {
 	}
 	
 	@DeleteMapping("/delete/{id}")
-	public void removeAccount(@PathVariable Integer id) {
+	public void removeAccount(@PathVariable String id) {
 		
 		accountService.removeAccount(id);
 	}

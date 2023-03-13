@@ -1,14 +1,14 @@
-//package com.bit.project.article.config;
-//
-//import org.springframework.boot.context.properties.ConfigurationProperties;
-//import org.springframework.boot.context.properties.ConstructorBinding;
-//import org.springframework.context.annotation.Bean;
-//import org.springframework.context.annotation.Configuration;
-//import org.thymeleaf.spring5.templateresolver.SpringResourceTemplateResolver;
-//
-//import lombok.Getter;
-//import lombok.RequiredArgsConstructor;
-//
+package com.bit.project.article.config;
+
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.boot.context.properties.ConstructorBinding;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.thymeleaf.spring5.templateresolver.SpringResourceTemplateResolver;
+
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+
 //@Configuration
 //public class ThymeleafConfig {
 //	@Bean

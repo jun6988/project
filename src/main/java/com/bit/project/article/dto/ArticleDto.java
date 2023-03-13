@@ -7,8 +7,16 @@ import com.bit.project.readingnote.entity.Account;
 
 public record ArticleDto(
 		// entity의 모든 정보를 가지고 있다.
-		Long id, AccountDto accountDto, String title, String content, String hashtag, Long hit,
-		LocalDateTime createdAt, String createdBy) {
+		Long id, 
+		AccountDto accountDto, 
+		String title, 
+		String content, 
+		String hashtag, 
+		Long hit,
+		LocalDateTime createdAt, 
+		String createdBy
+		) {
+	
 	public static ArticleDto of(AccountDto accountDto, String title, String content, String hashtag, Long hit) {
 		return new ArticleDto(null, accountDto, title, content, hashtag, hit, null, null);
 	}

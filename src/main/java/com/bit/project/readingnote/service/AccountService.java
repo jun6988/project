@@ -8,10 +8,15 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.bit.project.article.repository.AccountRepository;
 import com.bit.project.readingnote.entity.Account;
 
+import lombok.RequiredArgsConstructor;
+
+@RequiredArgsConstructor
+@Transactional
 @Service
 public class AccountService {
 
@@ -24,7 +29,7 @@ public class AccountService {
 			return accountRepository.findAll();
 		}
 		
-		public Optional<Account> getAccountListById(Integer id) {
+		public Optional<Account> getAccountListById(String id) {
 			
 			return accountRepository.findById(id);
 		}
@@ -104,7 +109,7 @@ public class AccountService {
 //		}
 		
 		// 삭제 처리
-		public void removeAccount(Integer id) {
+		public void removeAccount(String id) {
 			
 			accountRepository.deleteById(id);
 		}
@@ -164,5 +169,21 @@ public class AccountService {
 //			
 //			return accountRepository.saveAndFlush(account);
 //		}
+		
+
+
+
+
+//		    @Transactional(readOnly = true)
+//		    public Optional<AccountDto> searchUser(String username) {
+//		        return AccountRepository.findById(username)
+//		                .map(AccountDto::from);
+//		    }
+//
+//		    public AccountDto saveUser(String username, String password, String email, String nickname, String memo) {
+//		        return AccountDto.from(
+//		                accountRepository.save(Account.of(username, password, email, nickname, memo, username))
+//		        );
+//		    }
 		
 }
