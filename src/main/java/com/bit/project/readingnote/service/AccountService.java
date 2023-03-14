@@ -6,10 +6,10 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.bit.project.article.dto.AccountDto;
 import com.bit.project.article.repository.AccountRepository;
 import com.bit.project.readingnote.entity.Account;
 
@@ -19,9 +19,23 @@ import lombok.RequiredArgsConstructor;
 @Transactional
 @Service
 public class AccountService {
+	
+	public final AccountRepository accountRepository;
+	
+	@Transactional(readOnly = true)
+	public Optional<AccountDto> searchUser(String username) {
+		return accountRepository.findById(username)
+				.map(AccountDto::from);
+	}
+	
+	public AccountDto saveUser(String username, String password, String email, String nickname) {
+		return AccountDto.from(
+				accountRepository.save(Account.of(username, password, email, nickname, username))
+		);
+	}
 
-	@Autowired
-	private AccountRepository accountRepository;
+//	@Autowired
+//	private AccountRepository accountRepository;
 	
 	    // 리스트 처리
 		public List<Account> getAccountList() {
@@ -185,5 +199,6 @@ public class AccountService {
 //		                accountRepository.save(Account.of(username, password, email, nickname, memo, username))
 //		        );
 //		    }
+		
 		
 }

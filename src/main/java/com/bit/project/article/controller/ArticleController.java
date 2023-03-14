@@ -67,28 +67,28 @@ public class ArticleController {
 		return articles;
 	}
 
-//    @PostMapping("/form")
-//    @CrossOrigin(origins = "*", exposedHeaders = "Authorization")
-//    public void postNewArticle(
-//            @AuthenticationPrincipal BoardPrincipal boardPrincipal,
-//            ArticleRequest articleRequest
-//    ) {
-//        articleService.saveArticle(articleRequest.toDto(boardPrincipal.toDto()));
-//    }
+    @PostMapping("/form")
+    @CrossOrigin(origins = "*", exposedHeaders = "Authorization")
+    public void postNewArticle(
+            @AuthenticationPrincipal BoardPrincipal boardPrincipal,
+            ArticleRequest articleRequest
+    ) {
+        articleService.saveArticle(articleRequest.toDto(boardPrincipal.toDto()));
+    }
 	
-	@PostMapping("/form")
-	@CrossOrigin(origins = "*", exposedHeaders = "Authorization")
-	public ResponseEntity<String> postNewArticle(
-	        @AuthenticationPrincipal BoardPrincipal boardPrincipal,
-	        ArticleRequest articleRequest
-	) {
-	    try {
-	        articleService.saveArticle(articleRequest.toDto(boardPrincipal.toDto()));
-	        return ResponseEntity.ok("게시글이 생성되었습니다.");
-	    } catch (Exception e) {
-	        return ResponseEntity.badRequest().body("게시글 생성에 실패했습니다: " + e.getMessage());
-	    }
-	}
+//	@PostMapping("/form")
+//	@CrossOrigin(origins = "*", exposedHeaders = "Authorization")
+//	public ResponseEntity<String> postNewArticle(
+//	        @AuthenticationPrincipal BoardPrincipal boardPrincipal,
+//	        ArticleRequest articleRequest
+//	) {
+//	    try {
+//	        articleService.saveArticle(articleRequest.toDto(boardPrincipal.toDto()));
+//	        return ResponseEntity.ok("게시글이 생성되었습니다.");
+//	    } catch (Exception e) {
+//	        return ResponseEntity.badRequest().body("게시글 생성에 실패했습니다: " + e.getMessage());
+//	    }
+//	}
 
     @PostMapping("/{articleId}/form")
     @CrossOrigin(origins = "*", exposedHeaders = "Authorization")

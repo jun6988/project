@@ -4,7 +4,6 @@ import java.time.LocalDate;
 import java.util.Objects;
 import java.util.Set;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -21,7 +20,7 @@ import lombok.ToString;
 
 
 @Getter
-@ToString
+@ToString(callSuper = true)
 @Table(indexes = {
       @Index(columnList = "email", unique = true),
       @Index(columnList = "createdAt"),
@@ -32,10 +31,10 @@ public class Account extends AuditingFields {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY) // MySQL autoincrement 방식
-	private Long id;
+	private String accountId;
 	
-    @Column(length = 50, unique = true)
-    private String accountId;
+//    @Column(length = 50, unique = true)
+//    private String accountId;
 	
 	@Setter private String nickname;
 	
@@ -93,16 +92,23 @@ public class Account extends AuditingFields {
 	// 성준
 	protected Account() {}
 	
-	private Account(String accountId, String password, String nickname, String email) {
+	private Account(String accountId, String password, String nickname, String email, String createdBy) {
 		this.accountId = accountId;
 		this.password = password;
 		this.nickname = nickname;
 		this.email = email;
+		this.createdBy = createdBy;
 	}
 	
+	// 인증정보 있을 때
 	public static Account of(String accountId, String password, String nickname, String email) {
-		return new Account(accountId, password, nickname, email);
+		return new Account(accountId, password, nickname, email, null);
 	}
+	
+	// 인증정보 없을 때 
+		public static Account of(String accountId, String password, String nickname, String email, String createdBy) {
+			return new Account(accountId, password, nickname, email, createdBy);
+		}
 
 	@Override
 	public boolean equals(Object o) {
